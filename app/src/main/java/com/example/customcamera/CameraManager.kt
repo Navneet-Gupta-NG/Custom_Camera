@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.customcamera
 
 import android.app.Activity
@@ -18,6 +20,7 @@ import androidx.core.content.ContextCompat
 import java.io.File
 
 
+@Suppress("DEPRECATION")
 class CameraManager(private val context: Context, cameraView: SurfaceView) :
     SurfaceHolder.Callback {
 
@@ -58,12 +61,12 @@ class CameraManager(private val context: Context, cameraView: SurfaceView) :
 
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    fun savePhotoToGallery(data: ByteArray, callback: (success: Boolean, uri: Uri?) -> Unit) {
+    fun savePhotoToGallery(data: ByteArray, exposureValue: Double, callback: (success: Boolean, uri: Uri?) -> Unit)  {
         File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
             "Captured Images/${System.currentTimeMillis()}.jpg"
         )
-        val fileName = "IMG_${System.currentTimeMillis()}.jpg"
+        val fileName = "IMG_$exposureValue.jpg"
         val resolver = context.contentResolver
         val contentValues = ContentValues().apply {
             put(MediaStore.Images.Media.DISPLAY_NAME, fileName)

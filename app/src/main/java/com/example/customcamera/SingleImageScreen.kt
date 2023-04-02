@@ -37,7 +37,7 @@ class SingleImageScreen : AppCompatActivity() {
         captureButton.setOnClickListener {
             captureButton.isEnabled = false
             cameraManager.takePicture { data, camera ->
-                cameraManager.savePhotoToGallery(data) { success, uri ->
+                cameraManager.savePhotoToGallery(data,0.0) { success, uri ->
                     if (success) {
                         // The photo was saved successfully
                         Toast.makeText(this, "Image Saved to the Gallery", Toast.LENGTH_SHORT)
@@ -57,6 +57,7 @@ class SingleImageScreen : AppCompatActivity() {
 
     private fun counterStart() {
         timerTextview = findViewById(R.id.timer_textview)
+        Toast.makeText(this, "Timer for 300s started", Toast.LENGTH_SHORT).show()
         object : CountDownTimer(300000, 5000) { // 300 seconds, 5 second interval
             override fun onTick(millisUntilFinished: Long) {
                 timerTextview.text = (millisUntilFinished / 1000).toString()

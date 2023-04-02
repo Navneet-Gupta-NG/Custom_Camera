@@ -73,7 +73,7 @@ class MultipleImageScreen : AppCompatActivity() {
                     statusTextView.text = "Capturing Image for Exposure: ${exposureValues[index]}"
 
                     cameraManager.takePicture { data, camera ->
-                        cameraManager.savePhotoToGallery(data) { success, uri ->
+                        cameraManager.savePhotoToGallery(data, exposureValues[index].toDouble()) { success, uri ->
                             if (success) {
                                 // The photo was saved successfully
                                 Toast.makeText(
