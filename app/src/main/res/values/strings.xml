@@ -23,4 +23,5 @@
     <string name="take_test">Take Test</string>
     <string name="enter_email">Enter Email</string>
     <string name="enter_full_name">Enter Full Name</string>
+    <string name="timer_started_text">Timer started for 300 seconds</string>
 </resources>

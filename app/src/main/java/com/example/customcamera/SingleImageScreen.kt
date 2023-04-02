@@ -22,6 +22,7 @@ class SingleImageScreen : AppCompatActivity() {
     private lateinit var cameraManager: CameraManager
     private lateinit var captureButton: Button
     private lateinit var timerTextview: TextView
+    private lateinit var statusTextView: TextView
 
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -57,7 +58,10 @@ class SingleImageScreen : AppCompatActivity() {
 
     private fun counterStart() {
         timerTextview = findViewById(R.id.timer_textview)
-        Toast.makeText(this, "Timer for 300s started", Toast.LENGTH_SHORT).show()
+
+        statusTextView = findViewById(R.id.test_status_textview)
+        statusTextView.text = (getString(R.string.timer_started_text))
+
         object : CountDownTimer(300000, 5000) { // 300 seconds, 5 second interval
             override fun onTick(millisUntilFinished: Long) {
                 timerTextview.text = (millisUntilFinished / 1000).toString()
