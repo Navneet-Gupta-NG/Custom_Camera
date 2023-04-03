@@ -7,15 +7,6 @@
     android:background="@color/black"
     tools:context=".MultipleImageScreen">
 
-
-    <FrameLayout
-        android:id="@+id/camera_overlay_s3"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <SurfaceView
         android:id="@+id/camera_preview_s3"
         android:layout_width="match_parent"

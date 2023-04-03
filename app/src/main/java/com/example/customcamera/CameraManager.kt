@@ -27,6 +27,8 @@ class CameraManager(private val context: Context, cameraView: SurfaceView) :
     private var camera: Camera? = null
     private var CAMERA_PERMISSION_REQUEST_CODE = 100
     var isCapturingMultipleImages = false
+    private lateinit var surfaceHolder: SurfaceHolder
+
 
     init {
         // Adding the surface holder callback to the surface view
@@ -34,7 +36,7 @@ class CameraManager(private val context: Context, cameraView: SurfaceView) :
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
-        openCamera(holder, "100", Camera.Parameters.FOCUS_MODE_FIXED)
+        openCamera("100", Camera.Parameters.FOCUS_MODE_FIXED)
         camera?.setDisplayOrientation(90)
         camera?.setPreviewDisplay(holder)
     }
@@ -52,7 +54,41 @@ class CameraManager(private val context: Context, cameraView: SurfaceView) :
         camera?.release()
         camera = null
     }
+    fun openCamera(
+        iso: String?,
+        focusMode: String?,
+    ) =
+        if (ContextCompat.checkSelfPermission(
+                context,
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                context as Activity, arrayOf(Manifest.permission.CAMERA),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            try {
+                camera = Camera.open()
+                val parameters = camera!!.parameters
 
+                // Setting the ISO parameter
+                parameters?.let {
+                    val isoValues = parameters.get("iso-values")
+                    if (isoValues != null) {
+                        parameters.set(iso, focusMode)
+                    }
+                    parameters.set("focus-mode", "1")
+                    camera?.parameters = parameters
+                }
+
+                camera!!.setPreviewDisplay(surfaceHolder)
+                camera!!.startPreview()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     fun takePicture(callback: Camera.PictureCallback) {
         val parameters = camera?.parameters
         camera?.parameters = parameters
@@ -95,43 +131,6 @@ class CameraManager(private val context: Context, cameraView: SurfaceView) :
         }
     }
 
-
-    private fun openCamera(
-        surfaceHolder: SurfaceHolder,
-        iso: String?,
-        focusMode: String?,
-    ) =
-        if (ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                Activity(), arrayOf(Manifest.permission.CAMERA),
-                CAMERA_PERMISSION_REQUEST_CODE
-            )
-        } else {
-            try {
-                camera = Camera.open()
-                val parameters = camera!!.parameters
-
-                // Setting the ISO parameter
-                parameters?.let {
-                    val isoValues = parameters.get("iso-values")
-                    if (isoValues != null) {
-                        parameters.set("iso", "100")
-                    }
-                    parameters.set("focus-mode", "1")
-                    camera?.parameters = parameters
-                }
-
-                camera!!.setPreviewDisplay(surfaceHolder)
-                camera!!.startPreview()
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
 
     fun setExposureCompensation(value: Int) {
         val parameters = camera?.parameters
