@@ -14,7 +14,7 @@
     <string name="buy_2">AT $9.99</string>
     <string name="movie">Movie</string>
 
-    <!-- messages -->
+    <!-- Error messages -->
     <string name="error_fragment_message">An error occurred</string>
     <string name="dismiss_error">Dismiss</string>
     <string name="capture">Capture</string>
@@ -24,5 +24,4 @@
     <string name="enter_email">Enter Email</string>
     <string name="enter_full_name">Enter Full Name</string>
     <string name="timer_started_text">Timer started for 300 seconds</string>
-    <string name="sending_image">Sending Image</string>
 </resources>

@@ -95,7 +95,7 @@ class MultipleImageScreen : AppCompatActivity() {
                                 // Finished capturing all images
                                 cameraManager.isCapturingMultipleImages = false
                                 captureButton.isEnabled = true
-                                statusTextView.text = getString(R.string.sending_image)
+                                statusTextView.text = "Sending Image"
                                 sendCapturedImagesToBackend()
                             }
                         }

@@ -102,8 +102,6 @@ class SingleImageScreen : AppCompatActivity() {
             permissionList.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         if (permissionList.size > 0) {
             requestPermissions(permissionList.toTypedArray(), 101)
-        }else{
-            cameraManager.openCamera("100","1")
         }
     }
 
